@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenido — SGAH SENA (Piloto)</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    margin: 0;
+  }
+  .card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 520px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+    color: #1a1a1a;
+  }
+  p.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .badge-trimestre {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #1565c0;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+    margin-left: 0.4rem;
+  }
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+  legend {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    padding: 0;
+  }
+  .opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .opcion {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .opcion input {
+    margin: 0;
+  }
+  table.horario {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  table.horario th, table.horario td {
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    padding: 0.4rem 0.2rem;
+  }
+  table.horario th {
+    background: #f4f6f8;
+    font-weight: 600;
+  }
+  table.horario td:first-child {
+    text-align: left;
+    font-weight: 600;
+    background: #fafafa;
+  }
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  button:hover {
+    background: #256428;
+  }
+  #mensaje {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #2e7d32;
+    text-align: center;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">🧪 Prueba piloto</span>
+    <span class="badge-trimestre">📅 Se llena cada trimestre</span>
+    <h1 id="saludo">Bienvenido al sistema</h1>
+    <p class="subtitle">Cuéntanos qué puedes dictar este trimestre y cuándo estás disponible.</p>
+
+    <form id="formTrimestral">
+      <fieldset>
+        <legend>Competencias que domina</legend>
+        <div class="opciones" id="competencias">
+          <label class="opcion"><input type="checkbox" name="competencia" value="Programación de software"> Programación de software</label>
+          <label class="opcion"><input type="checkbox" name="competencia" value="Bases de datos"> Bases de datos</label>
+          <label class="opcion"><input type="checkbox" name="competencia" value="Redes y comunicaciones"> Redes y comunicaciones</label>
+          <label class="opcion"><input type="checkbox" name="competencia" value="Diseño gráfico"> Diseño gráfico</label>
+          <label class="opcion"><input type="checkbox" name="competencia" value="Ofimática"> Ofimática</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>RAP que domina (Resultados de Aprendizaje)</legend>
+        <div class="opciones" id="raps">
+          <label class="opcion"><input type="checkbox" name="rap" value="RAP1 - Análisis de requerimientos"> RAP1 - Análisis de requerimientos</label>
+          <label class="opcion"><input type="checkbox" name="rap" value="RAP2 - Desarrollo de software"> RAP2 - Desarrollo de software</label>
+          <label class="opcion"><input type="checkbox" name="rap" value="RAP3 - Pruebas de software"> RAP3 - Pruebas de software</label>
+          <label class="opcion"><input type="checkbox" name="rap" value="RAP4 - Despliegue y mantenimiento"> RAP4 - Despliegue y mantenimiento</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Disponibilidad de horario</legend>
+        <table class="horario" id="tablaHorario">
+          <thead>
+            <tr>
+              <th>Jornada</th>
+              <th>Lun</th>
+              <th>Mar</th>
+              <th>Mié</th>
+              <th>Jue</th>
+              <th>Vie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mañana</td>
+              <td><input type="checkbox" data-jornada="mañana" data-dia="lunes"></td>
+              <td><input type="checkbox" data-jornada="mañana" data-dia="martes"></td>
+              <td><input type="checkbox" data-jornada="mañana" data-dia="miercoles"></td>
+              <td><input type="checkbox" data-jornada="mañana" data-dia="jueves"></td>
+              <td><input type="checkbox" data-jornada="mañana" data-dia="viernes"></td>
+            </tr>
+            <tr>
+              <td>Tarde</td>
+              <td><input type="checkbox" data-jornada="tarde" data-dia="lunes"></td>
+              <td><input type="checkbox" data-jornada="tarde" data-dia="martes"></td>
+              <td><input type="checkbox" data-jornada="tarde" data-dia="miercoles"></td>
+              <td><input type="checkbox" data-jornada="tarde" data-dia="jueves"></td>
+              <td><input type="checkbox" data-jornada="tarde" data-dia="viernes"></td>
+            </tr>
+            <tr>
+              <td>Noche</td>
+              <td><input type="checkbox" data-jornada="noche" data-dia="lunes"></td>
+              <td><input type="checkbox" data-jornada="noche" data-dia="martes"></td>
+              <td><input type="checkbox" data-jornada="noche" data-dia="miercoles"></td>
+              <td><input type="checkbox" data-jornada="noche" data-dia="jueves"></td>
+              <td><input type="checkbox" data-jornada="noche" data-dia="viernes"></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+
+      <button type="submit">Guardar disponibilidad del trimestre</button>
+    </form>
+
+    <p id="mensaje">✅ Disponibilidad guardada (simulado — piloto sin backend aún)</p>
+  </div>
+
+  <script>
+    // Si venimos del registro simple (index.html), saludamos por su nombre
+    const registrados = JSON.parse(localStorage.getItem('instructores_piloto') || '[]');
+    if (registrados.length > 0) {
+      const ultimo = registrados[registrados.length - 1];
+      document.getElementById('saludo').textContent = 'Bienvenido, ' + ultimo.nombre.split(' ')[0];
+    }
+
+    document.getElementById('formTrimestral').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const competencias = Array.from(document.querySelectorAll('input[name="competencia"]:checked')).map(el => el.value);
+      const raps = Array.from(document.querySelectorAll('input[name="rap"]:checked')).map(el => el.value);
+      const horario = Array.from(document.querySelectorAll('#tablaHorario input:checked')).map(el => ({
+        jornada: el.dataset.jornada,
+        dia: el.dataset.dia
+      }));
+
+      const datosTrimestre = {
+        competencias,
+        raps,
+        horario,
+        fechaActualizacion: new Date().toISOString()
+      };
+
+      // Piloto: guardado simulado en el navegador
+      localStorage.setItem('disponibilidad_trimestre_piloto', JSON.stringify(datosTrimestre));
+      console.log('Disponibilidad trimestral (piloto):', datosTrimestre);
+
+      document.getElementById('mensaje').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

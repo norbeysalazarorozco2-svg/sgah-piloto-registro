@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Instructor — SGAH SENA (Piloto)</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 420px;
+  }
+  h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+    color: #1a1a1a;
+  }
+  p.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: #333;
+  }
+  input {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+  }
+  input:focus {
+    outline: none;
+    border-color: #2e7d32;
+  }
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #256428;
+  }
+  .badge {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  #mensaje {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #2e7d32;
+    text-align: center;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">🧪 Prueba piloto</span>
+    <h1>Registro de Instructor</h1>
+    <p class="subtitle">Sistema de Gestión y Asignación de Horarios — SENA</p>
+
+    <form id="formRegistro">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Ej: Ana María Restrepo" required>
+
+      <label for="cedula">Cédula de ciudadanía</label>
+      <input type="text" id="cedula" name="cedula" placeholder="Ej: 1035678901" required>
+
+      <label for="correo">Correo institucional</label>
+      <input type="email" id="correo" name="correo" placeholder="nombre@sena.edu.co" required>
+
+      <button type="submit">Registrarme</button>
+    </form>
+
+    <p id="mensaje">✅ Registro guardado (simulado — piloto sin backend aún)</p>
+  </div>
+
+  <script>
+    // Piloto: por ahora solo simula el guardado en el navegador (localStorage).
+    // No hay backend todavía — el stack se define con el equipo el miércoles.
+    document.getElementById('formRegistro').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const instructor = {
+        nombre: document.getElementById('nombre').value,
+        cedula: document.getElementById('cedula').value,
+        correo: document.getElementById('correo').value,
+        fechaRegistro: new Date().toISOString()
+      };
+
+      // Guardado local simulado, solo para ver el flujo funcionando
+      const registrados = JSON.parse(localStorage.getItem('instructores_piloto') || '[]');
+      registrados.push(instructor);
+      localStorage.setItem('instructores_piloto', JSON.stringify(registrados));
+
+      console.log('Instructor registrado (piloto):', instructor);
+
+      document.getElementById('mensaje').style.display = 'block';
+      document.getElementById('formRegistro').reset();
+    });
+  </script>
+</body>
+</html>
